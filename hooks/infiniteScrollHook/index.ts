@@ -3,13 +3,13 @@ import useInfiniteScroll, {
   UseInfiniteScrollHookRefCallback,
   UseInfiniteScrollHookResult,
   UseInfiniteScrollHookRootRefCallback,
-} from './useInfiniteScroll';
+} from './useInfiniteScroll'
 
 export type {
   UseInfiniteScrollHookArgs,
   UseInfiniteScrollHookRefCallback,
   UseInfiniteScrollHookResult,
   UseInfiniteScrollHookRootRefCallback,
-};
+}
 
-export default useInfiniteScroll;
+export default useInfiniteScroll

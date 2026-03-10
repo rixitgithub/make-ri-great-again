@@ -5,13 +5,13 @@ export type {
   IntersectionObserverHookResult,
   IntersectionObserverHookRootRefCallback,
   IntersectionObserverHookRootRefCallbackNode,
-} from './useIntersectionObserver';
+} from './useIntersectionObserver'
 
-export { default as useIntersectionObserver } from './useIntersectionObserver';
+export { default as useIntersectionObserver } from './useIntersectionObserver'
 
 export type {
   TrackVisibilityHookArgs,
   TrackVisibilityHookResult,
-} from './useTrackVisibility';
+} from './useTrackVisibility'
 
-export { default as useTrackVisibility } from './useTrackVisibility';
+export { default as useTrackVisibility } from './useTrackVisibility'

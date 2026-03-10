@@ -1,17 +1,17 @@
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
 export const formatDate = (
   dateString: string,
-  format: string = 'MMMM D, YYYY'
+  format: string = 'MMMM D, YYYY',
 ): string => {
-  return dayjs(dateString).format(format);
-};
+  return dayjs(dateString).format(format)
+}
 
 export const formatDateToCustomFormat = (
-  date: string | number | Date | dayjs.Dayjs
+  date: string | number | Date | dayjs.Dayjs,
 ): string => {
-  return dayjs(date).format('DD-MMM-YYYY');
-};
+  return dayjs(date).format('DD-MMM-YYYY')
+}
 
 export const formatCreatedAt = (date: string) => {
   const options: Intl.DateTimeFormatOptions = {
@@ -21,35 +21,35 @@ export const formatCreatedAt = (date: string) => {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,
-  };
+  }
 
-  const createdAt = new Date(date);
-  const formattedDate = createdAt.toLocaleString('en-US', options);
+  const createdAt = new Date(date)
+  const formattedDate = createdAt.toLocaleString('en-US', options)
 
-  return formattedDate;
-};
+  return formattedDate
+}
 
 export const formatWithDaySuffix = (
-  date: string | number | Date | dayjs.Dayjs
+  date: string | number | Date | dayjs.Dayjs,
 ): string => {
-  const day = dayjs(date).format('D');
-  const dayNumber = parseInt(day, 10);
+  const day = dayjs(date).format('D')
+  const dayNumber = parseInt(day, 10)
 
   const suffix =
     dayNumber === 1 || dayNumber === 21 || dayNumber === 31
       ? 'st'
       : dayNumber === 2 || dayNumber === 22
-      ? 'nd'
-      : dayNumber === 3 || dayNumber === 23
-      ? 'rd'
-      : 'th';
+        ? 'nd'
+        : dayNumber === 3 || dayNumber === 23
+          ? 'rd'
+          : 'th'
 
-  return dayjs(date).format(`DD[${suffix}] MMMM, YYYY`);
-};
+  return dayjs(date).format(`DD[${suffix}] MMMM, YYYY`)
+}
 
 export const getDaysFromToday = (date: string) => {
-  const today = dayjs();
-  const date1 = dayjs(date);
+  const today = dayjs()
+  const date1 = dayjs(date)
 
-  return date1.startOf('day').diff(today.startOf('day'), 'day');
-};
+  return date1.startOf('day').diff(today.startOf('day'), 'day')
+}

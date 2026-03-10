@@ -1,19 +1,19 @@
-import { PATH } from '@/utils/constants/others/paths';
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
+import { PATH } from '@/utils/constants/others/paths'
 
 export const clearCookies = (
   path?: string,
-  shouldRedirect: boolean = true
+  shouldRedirect: boolean = true,
 ): void => {
-  const cookies = Cookies.get();
+  const cookies = Cookies.get()
 
   for (const cookie in cookies) {
     if (Object.prototype.hasOwnProperty.call(cookies, cookie)) {
-      Cookies.remove(cookie);
+      Cookies.remove(cookie)
     }
   }
 
   if (shouldRedirect) {
-    window.location.href = path || PATH.SIGNIN;
+    window.location.href = path || PATH.SIGNIN
   }
-};
+}

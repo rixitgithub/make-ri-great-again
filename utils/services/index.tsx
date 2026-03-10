@@ -1,13 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import Cookies from 'js-cookie';
-import { COOKIES } from '../constants/others/cookies';
-import { asyncHandler } from './asyncHandler';
+import axios, { AxiosRequestConfig } from 'axios'
+import Cookies from 'js-cookie'
+import { COOKIES } from '../constants/others/cookies'
+import { asyncHandler } from './asyncHandler'
 
 // Function to check if the response status is successful (2xx range)
-const checkStatus = (status: number): boolean => status >= 200 && status < 300;
+const checkStatus = (status: number): boolean => status >= 200 && status < 300
 
 // Base URL for the API, taken from environment variables
-export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
 
 // Create an axios client instance with default configurations
 const client = axios.create({
@@ -19,16 +19,16 @@ const client = axios.create({
   },
   validateStatus: checkStatus,
   timeout: 60000,
-});
+})
 
 // Request interceptor to attach the authorization token
 client.interceptors.request.use((config) => {
-  const accessToken = `Bearer ${Cookies.get(COOKIES.AUTH_TOKEN)}`;
+  const accessToken = `Bearer ${Cookies.get(COOKIES.AUTH_TOKEN)}`
   if (accessToken) {
-    config.headers['Authorization'] = accessToken;
+    config.headers['Authorization'] = accessToken
   }
-  return Promise.resolve(config);
-});
+  return Promise.resolve(config)
+})
 
 // GET request function with async error handling
 export const getData = async (
@@ -36,7 +36,7 @@ export const getData = async (
   config: AxiosRequestConfig = {},
   showToast?: boolean,
   setError?: (error: any) => void,
-  byPassError?: boolean
+  byPassError?: boolean,
 ): Promise<any> => {
   return await asyncHandler(
     async () =>
@@ -47,9 +47,9 @@ export const getData = async (
     undefined,
     showToast,
     setError,
-    byPassError
-  );
-};
+    byPassError,
+  )
+}
 
 // POST request function with async error handling
 export const postData = async (
@@ -59,16 +59,16 @@ export const postData = async (
   fnName?: string,
   showToast?: boolean,
   setError?: (error: any) => void,
-  byPassError?: boolean
+  byPassError?: boolean,
 ): Promise<any> => {
   return await asyncHandler(
     async () => await client.post(endpoint, payload, config),
     fnName,
     showToast,
     setError,
-    byPassError
-  );
-};
+    byPassError,
+  )
+}
 
 // PATCH request function with async error handling
 export const patchData = async (
@@ -77,15 +77,15 @@ export const patchData = async (
   fnName?: string,
   showToast?: boolean,
   config: AxiosRequestConfig = {},
-  setError?: (error: any) => void
+  setError?: (error: any) => void,
 ): Promise<any> => {
   return await asyncHandler(
     async () => await client.patch(endpoint, payload, config),
     fnName,
     showToast,
-    setError
-  );
-};
+    setError,
+  )
+}
 
 // PUT request function with async error handling
 export const putData = async (
@@ -93,15 +93,15 @@ export const putData = async (
   payload: any,
   fnName?: string,
   showToast?: boolean,
-  setError?: (error: any) => void
+  setError?: (error: any) => void,
 ): Promise<any> => {
   return await asyncHandler(
     async () => await client.put(endpoint, payload),
     fnName,
     showToast,
-    setError
-  );
-};
+    setError,
+  )
+}
 
 // DELETE request function with async error handling
 export const deleteData = async (
@@ -109,7 +109,7 @@ export const deleteData = async (
   payload?: any,
   fnName?: string,
   showToast?: boolean,
-  setError?: (error: any) => void
+  setError?: (error: any) => void,
 ): Promise<any> => {
   return await asyncHandler(
     async () =>
@@ -118,6 +118,6 @@ export const deleteData = async (
       }),
     fnName,
     showToast,
-    setError
-  );
-};
+    setError,
+  )
+}

@@ -1,27 +1,27 @@
-import { MutableRefObject, useEffect } from 'react';
+import { MutableRefObject, useEffect } from 'react'
 
 function useOutsideAlerter(
   ref: MutableRefObject<HTMLElement | null>,
   setShow: ((value: boolean) => void) | null = null,
-  callBack: (() => void) | null = null
+  callBack: (() => void) | null = null,
 ) {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         if (setShow) {
-          setShow(false);
+          setShow(false)
         }
         if (callBack) {
-          callBack();
+          callBack()
         }
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [ref]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [ref, setShow, callBack])
 }
 
-export default useOutsideAlerter;
+export default useOutsideAlerter

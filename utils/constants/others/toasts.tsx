@@ -23,7 +23,7 @@ export const TOAST_COLORS = {
     default: { bg: '#FAE8C8' },
     common: { border: '#DC6803', closeButton: '#DC6803' },
   },
-} as const;
+} as const
 
 export const defaultToastMessages: Record<
   ToastStatusType,
@@ -45,4 +45,4 @@ export const defaultToastMessages: Record<
     title: '⚠️ Heads Up!',
     description: 'There may be an issue that needs attention.',
   },
-};
+}

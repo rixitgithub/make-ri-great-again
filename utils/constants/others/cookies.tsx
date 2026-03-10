@@ -3,4 +3,4 @@ export const COOKIES = {
   REGISTERED_EMAIL: 'registered_email',
   VERIFIED: 'is_verified',
   BUY_PLAN: 'buy_plan',
-} as const;
+} as const
