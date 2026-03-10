@@ -1,0 +1,23 @@
+---
+description: Core project conventions and formatting
+alwaysApply: true
+---
+
+# Project standards
+
+## Stack
+
+- **Next.js 16**, React 19, TypeScript. App Router only.
+
+## Formatting (Prettier)
+
+- No semicolons; single quotes; trailing commas everywhere; 80 print width; 2-space indent.
+- Import order: `react` → `next` → third-party → `@/components` → `@/hooks` → `@/lib` → `@/utils` → relative.
+
+## Paths
+
+- Use `@/` for app root: `@/components`, `@/hooks`, `@/lib`, `@/utils`.
+
+## Quality
+
+- Run `npm run lint` before committing. Pre-commit runs ESLint and `prettier --check .`.

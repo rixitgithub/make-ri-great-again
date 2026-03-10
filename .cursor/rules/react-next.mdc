@@ -1,0 +1,66 @@
+---
+alwaysApply: true
+---
+## 3. Utils
+All reusable logic lives in /utils/. Organized by domain:
+
+  /utils/cn.ts         → className merge helper (clsx + tailwind-merge)
+  /utils/date.ts       → date formatting and parsing
+  /utils/string.ts     → string manipulation
+  /utils/number.ts     → number formatting
+  /utils/api.ts        → API helpers and error handling
+  /utils/validation.ts → form and data validation
+
+Never duplicate logic across files. If it is used more than once, it
+belongs in /utils/. Always import from /utils/ — never redefine locally.
+
+---
+
+## 4. Styling — Non-Negotiable Rules
+
+### No hardcoded values. Ever.
+NEVER use hex, rgb(), hsl(), or any literal color value in JSX,
+inline styles, or className strings.
+
+❌ Wrong:
+<div style={{ color: '#5c7cfa' }}>
+<div className="text-[#5c7cfa]">
+<div style={{ background: 'hsl(228, 94%, 67%)' }}>
+
+✅ Correct:
+<div className="text-primary">
+<div className="bg-accent">
+
+### No token passing as props or inline styles
+NEVER pass design tokens as inline style props between components.
+Tokens are consumed via Tailwind classes or global CSS only.
+
+❌ Wrong:
+<Component color="var(--primary)" />
+<div style={{ color: 'var(--primary)' }}>
+
+✅ Correct:
+<div className="text-primary">
+
+### Tailwind classes must map to globals.css tokens
+Only use Tailwind classes that correspond to CSS variables defined in
+globals.css — e.g. bg-background, text-foreground, border-border,
+text-muted-foreground, bg-card, text-primary, bg-destructive.
+
+For any style not covered by an existing token, add a class to
+globals.css and use that. Never use arbitrary Tailwind values.
+
+❌ Wrong:
+<div className="text-[#333] bg-[rgba(0,0,0,0.4)]">
+
+✅ Correct: add to globals.css, then:
+<div className="my-new-class">
+
+### Always use cn() for className composition
+Import cn from @/utils/cn. Never manually concatenate className strings.
+
+❌ Wrong:
+className={'base-class ' + (isActive ? 'active' : '')}
+
+✅ Correct:
+className={cn('base-class', isActive && 'active')}
