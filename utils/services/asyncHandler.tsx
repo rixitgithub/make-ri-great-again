@@ -13,7 +13,7 @@ export const asyncHandler = async (
     if (byPassError) {
       throw error
     }
-    return handleError(error, fnName, showToast)
+    return handleError(error, fnName, showToast, setError)
   }
 }
 

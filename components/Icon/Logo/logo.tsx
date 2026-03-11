@@ -47,7 +47,17 @@ export const Logo = ({
   )
 }
 
-export const LogoBlackFill = ({ className, width = '226', height = '210' }) => (
+interface LogoBlackFillProps {
+  className?: string
+  width?: string | number
+  height?: string | number
+}
+
+export const LogoBlackFill = ({
+  className,
+  width = '226',
+  height = '210',
+}: LogoBlackFillProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 226.465 209.955"

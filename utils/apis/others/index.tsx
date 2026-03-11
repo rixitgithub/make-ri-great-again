@@ -67,7 +67,7 @@ export const checkCustomDomainStatus = async ({
     `/others/check-domain-status`,
     payload,
     {},
-    null,
+    undefined,
     showToast
   );
 

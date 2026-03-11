@@ -22,13 +22,13 @@ import { Label } from '../../ui/label'
 import { Textarea } from '../../ui/textarea'
 import { ButtonLoader } from '../Loader'
 
-interface FieldGroup {
+export interface FieldGroup {
   name: string
   label?: string
   placeholder?: string
   type?: string
   disabled?: boolean
-  checkboxLabel?: string
+  checkboxLabel?: React.ReactNode
   labelClassName?: string
   inputClassName?: string
   inputComponentType?: 'input' | 'textarea'
@@ -36,7 +36,7 @@ interface FieldGroup {
   infoContentClassName?: string
 }
 
-type FieldRow = FieldGroup[]
+export type FieldRow = FieldGroup[]
 
 interface RiFormProps {
   form: any

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -18,22 +18,13 @@ import { COOKIES } from '@/utils/constants/others/cookies'
 import { PATH } from '@/utils/constants/others/paths'
 import { AppsumoAuthenticationFormSchema } from '@/utils/forms/schemas/auth'
 
-const Page: React.FC = () => {
+const AppsumoSigninContent: React.FC = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const userEmail = searchParams.get('email')
   const error = searchParams.get('error')
   const { toast } = useToast()
-
-  const [, setHostname] = useState(process.env.NEXT_PUBLIC_HOSTNAME)
   const [signinLoading, setSigninLoading] = useState(false)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const host = window.location.hostname
-      if (host) setHostname(host)
-    }
-  }, [])
 
   type FormValues = z.infer<typeof AppsumoAuthenticationFormSchema>
 
@@ -158,6 +149,14 @@ const Page: React.FC = () => {
         </RiCard>
       </Wrapper>
     </>
+  )
+}
+
+const Page: React.FC = () => {
+  return (
+    <Suspense fallback={null}>
+      <AppsumoSigninContent />
+    </Suspense>
   )
 }
 

@@ -11,7 +11,11 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/hooks/useToast'
 import { forgetPassword, resetPassword } from '@/utils/apis/auth'
 
-export const ResetPassword = ({ handleClose }) => {
+interface ResetPasswordProps {
+  handleClose: () => void
+}
+
+export const ResetPassword = ({ handleClose }: ResetPasswordProps) => {
   const { toast } = useToast()
 
   const [resetLoading, setResetLoading] = useState(false)
@@ -40,7 +44,7 @@ export const ResetPassword = ({ handleClose }) => {
 
   const formSchema = z.object(validationSchema)
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
   })
@@ -104,12 +108,12 @@ export const ResetPassword = ({ handleClose }) => {
 
   const resetPasswordFormSchema = z.object(resetPasswordValidationSchema)
 
-  const resetPasswordForm = useForm({
+  const resetPasswordForm = useForm<z.infer<typeof resetPasswordFormSchema>>({
     resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: resetPasswordDefaultValues,
   })
 
-  const handleSendOTP = async (data) => {
+  const handleSendOTP = async (data: z.infer<typeof formSchema>) => {
     const response = await forgetPassword({
       payload: data,
       setLoading: setResetLoading,
@@ -121,7 +125,9 @@ export const ResetPassword = ({ handleClose }) => {
     }
   }
 
-  const handleResetPassword = async (data) => {
+  const handleResetPassword = async (
+    data: z.infer<typeof resetPasswordFormSchema>,
+  ) => {
     if (data.password !== data.repeatPassword) {
       toast({
         type: 'failed',

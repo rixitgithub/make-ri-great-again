@@ -5,11 +5,24 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+interface Testimonial {
+  quote: string
+  name: string
+  src: string
+  designation?: string
+}
+
+interface AnimatedTestimonialsProps {
+  testimonials?: Testimonial[]
+  autoplay?: boolean
+  className?: string
+}
+
 export const AnimatedTestimonials = ({
   testimonials = [],
   autoplay = true,
   className,
-}) => {
+}: AnimatedTestimonialsProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {

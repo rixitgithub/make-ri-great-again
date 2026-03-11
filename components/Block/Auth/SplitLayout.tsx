@@ -1,10 +1,23 @@
 'use client'
 
+import { type ReactNode } from 'react'
 import { AnimatedTestimonials } from '@/components/shared'
 import { AuthLogo } from '@/components/shared/AuthLogo/AuthLogo'
 import useWindowSize from '@/hooks/useWindowSize'
 import { cn } from '@/lib/utils'
 import { AUTH_TESTIMONIALS } from '@/utils/constants/auth/testimonials'
+
+//move-interface
+interface SplitLayoutProps {
+  children: ReactNode
+  leftContentClassName?: string
+  containerClassName?: string
+  showLogo?: boolean
+  logoPosition?: 'center' | 'top-left'
+  showTestimonials?: boolean
+  headerRight?: ReactNode
+  centerContent?: boolean
+}
 
 export const SplitLayout = ({
   children,
@@ -15,7 +28,7 @@ export const SplitLayout = ({
   showTestimonials = true,
   headerRight,
   centerContent = false,
-}) => {
+}: SplitLayoutProps) => {
   const isMobile = useWindowSize()
 
   return (

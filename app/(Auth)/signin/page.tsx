@@ -1,18 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Cookies from 'js-cookie'
+import z from 'zod'
 import { ResetPassword, SplitLayout } from '@/components/Block/Auth'
 import GoogleLogo from '@/components/Icon/Social/Google'
 import { RiForm } from '@/components/shared/RiForm/RiForm'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { toast } from '@/hooks/useToast'
-import useWindowSize from '@/hooks/useWindowSize'
 import { loginUser } from '@/utils/apis/auth'
 import { COOKIES } from '@/utils/constants/others/cookies'
 import { PATH } from '@/utils/constants/others/paths'
@@ -20,8 +20,9 @@ import { SigninFormDefaultValues } from '@/utils/forms/defaults/signin'
 import { SigninFormFields } from '@/utils/forms/fields/signin'
 import { SigninFormSchema } from '@/utils/forms/schemas/signin'
 
-const Page = () => {
-  const isMobile = useWindowSize()
+type SigninFormValues = z.infer<typeof SigninFormSchema>
+
+const SigninContent = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const invitationId =
@@ -29,7 +30,6 @@ const Page = () => {
   const workspaceId =
     searchParams.get('workspaceId') || Cookies.get(COOKIES.WORKSPACE_ID)
 
-  const [hostname, setHostname] = useState(process.env.NEXT_PUBLIC_HOSTNAME)
   const [signinLoading, setSigninLoading] = useState(false)
   const [showResetPasswordDialog, setShowResetPasswordDialog] = useState(false)
 
@@ -38,7 +38,7 @@ const Page = () => {
     defaultValues: SigninFormDefaultValues,
   })
 
-  const handleLogin = (data) => {
+  const handleLogin = (data: SigninFormValues) => {
     Cookies.remove(COOKIES.BUY_PLAN)
     const email = data?.email?.toLowerCase()
 
@@ -53,24 +53,7 @@ const Page = () => {
     Cookies.set(COOKIES.REGISTERED_EMAIL, email)
   }
 
-  const handleGoogleLogin = () => {
-    Cookies.remove(COOKIES.BUY_PLAN)
-    if (invitationId && workspaceId) {
-      Cookies.set(COOKIES.INVITATION_ID, invitationId)
-      Cookies.set(COOKIES.WORKSPACE_ID, workspaceId)
-    }
-    window.location.href = `${process.env.NEXT_PUBLIC_PROTOCOL}://${hostname}/api/v1${PATH.GOOGLE_LOGIN}`
-  }
-
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const host = window.location.hostname
-
-      if (host) {
-        setHostname(host)
-      }
-    }
-
     if (invitationId && workspaceId) {
       toast({
         type: 'success',
@@ -78,7 +61,19 @@ const Page = () => {
           'You have been invited to join a workspace. Please login to continue.',
       })
     }
-  }, [])
+  }, [invitationId, workspaceId])
+
+  const handleGoogleLogin = () => {
+    Cookies.remove(COOKIES.BUY_PLAN)
+    if (invitationId && workspaceId) {
+      Cookies.set(COOKIES.INVITATION_ID, invitationId)
+      Cookies.set(COOKIES.WORKSPACE_ID, workspaceId)
+    }
+    if (typeof window !== 'undefined') {
+      const host = window.location.hostname
+      window.location.href = `${process.env.NEXT_PUBLIC_PROTOCOL}://${host}/api/v1${PATH.GOOGLE_LOGIN}`
+    }
+  }
 
   return (
     <>
@@ -96,7 +91,7 @@ const Page = () => {
             className="flex gap-1 w-full justify-center items-center text-white border-white/10 hover:bg-card/90 h-11 py-2 px-2.5 rounded-[10px] bg-card self-stretch"
             onClick={handleGoogleLogin}
           >
-            <GoogleLogo className="text-xl" />
+            <GoogleLogo width={20} height={20} className="mr-1" />
             <p className="font-light">Sign in with Google</p>
           </Button>
         </div>
@@ -166,6 +161,14 @@ const Page = () => {
         </div>
       </SplitLayout>
     </>
+  )
+}
+
+const Page = () => {
+  return (
+    <Suspense fallback={null}>
+      <SigninContent />
+    </Suspense>
   )
 }
 
