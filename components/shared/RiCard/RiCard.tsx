@@ -1,5 +1,6 @@
 'use client';
 
+import { ReactNode, forwardRef } from 'react';
 import { RiHover } from '@/components/shared/RiHover/RiHover';
 import {
   Card,
@@ -8,10 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { forwardRef } from 'react';
-import { IoMdInformationCircle } from 'react-icons/io';
+import { Info } from 'lucide-react';
 
-export const RiCard = forwardRef(
+// move-interface 
+interface RiCardProps {
+  header?: ReactNode;
+  title?: string;
+  description?: string;
+  children?: ReactNode;
+  className?: string;
+  headerClassName?: string;
+  contentClassName?: string;
+  showInfo?: boolean;
+  infoContent?: ReactNode;
+  onClick?: () => void;
+  overflow?: boolean;
+}
+
+export const RiCard = forwardRef<HTMLDivElement, RiCardProps>(
   (
     {
       header,
@@ -41,29 +56,30 @@ export const RiCard = forwardRef(
             ? header
             : title && (
                 <>
-                  <div className='flex items-center gap-2'>
+                  <div className="flex items-center gap-2">
                     {title && (
-                      <CardTitle className='flex flex-1 text-xl lg:justify-center justify-start font-normal mb-5'>
+                      <CardTitle className="flex flex-1 text-xl lg:justify-center justify-start font-normal mb-5">
                         {title}
                       </CardTitle>
                     )}
                     {showInfo && (
-                      <RiHover
-                        trigger={
-                          <IoMdInformationCircle className='text-xl text-primary' />
-                        }
-                        side='right'
-                        contentClassName='w-[26rem]'
-                      >
-                        {infoContent}
-                      </RiHover>
+<RiHover
+  trigger={<Info className="text-xl text-primary" />}
+  side="right"
+  contentClassName="w-[26rem]"
+>
+  {infoContent}
+</RiHover>
                     )}
                   </div>
                   <CardDescription>{description}</CardDescription>
                 </>
               )}
         </CardHeader>
-        <CardContent className={`${contentClassName}`}>{children}</CardContent>
+
+        <CardContent className={`${contentClassName}`}>
+          {children}
+        </CardContent>
       </Card>
     );
   }
