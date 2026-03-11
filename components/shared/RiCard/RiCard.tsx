@@ -1,29 +1,29 @@
-'use client';
+'use client'
 
-import { ReactNode, forwardRef } from 'react';
-import { RiHover } from '@/components/shared/RiHover/RiHover';
+import { forwardRef, ReactNode } from 'react'
+import { Info } from 'lucide-react'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Info } from 'lucide-react';
+} from '../../ui/card'
+import { RiHover } from '../RiHover/RiHover'
 
-// move-interface 
+// move-interface
 interface RiCardProps {
-  header?: ReactNode;
-  title?: string;
-  description?: string;
-  children?: ReactNode;
-  className?: string;
-  headerClassName?: string;
-  contentClassName?: string;
-  showInfo?: boolean;
-  infoContent?: ReactNode;
-  onClick?: () => void;
-  overflow?: boolean;
+  header?: ReactNode
+  title?: string
+  description?: string
+  children?: ReactNode
+  className?: string
+  headerClassName?: string
+  contentClassName?: string
+  showInfo?: boolean
+  infoContent?: ReactNode
+  onClick?: () => void
+  overflow?: boolean
 }
 
 export const RiCard = forwardRef<HTMLDivElement, RiCardProps>(
@@ -41,7 +41,7 @@ export const RiCard = forwardRef<HTMLDivElement, RiCardProps>(
       onClick = () => {},
       overflow = true,
     },
-    ref
+    ref,
   ) => {
     return (
       <Card
@@ -63,13 +63,13 @@ export const RiCard = forwardRef<HTMLDivElement, RiCardProps>(
                       </CardTitle>
                     )}
                     {showInfo && (
-<RiHover
-  trigger={<Info className="text-xl text-primary" />}
-  side="right"
-  contentClassName="w-[26rem]"
->
-  {infoContent}
-</RiHover>
+                      <RiHover
+                        trigger={<Info className="text-xl text-primary" />}
+                        side="right"
+                        contentClassName="w-104"
+                      >
+                        {infoContent}
+                      </RiHover>
                     )}
                   </div>
                   <CardDescription>{description}</CardDescription>
@@ -77,12 +77,10 @@ export const RiCard = forwardRef<HTMLDivElement, RiCardProps>(
               )}
         </CardHeader>
 
-        <CardContent className={`${contentClassName}`}>
-          {children}
-        </CardContent>
+        <CardContent className={`${contentClassName}`}>{children}</CardContent>
       </Card>
-    );
-  }
-);
+    )
+  },
+)
 
-RiCard.displayName = 'RiCard';
+RiCard.displayName = 'RiCard'

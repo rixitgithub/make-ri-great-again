@@ -1,7 +1,14 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { CircleCheck } from 'lucide-react'
+import { RiHover } from '..'
+import useWindowSize from '../../../hooks/useWindowSize'
+import { cn } from '../../../lib/utils'
+import { PATH } from '../../../utils/constants/others/paths'
+import { Button } from '../../ui/button'
 import {
   Form,
   FormControl,
@@ -9,52 +16,45 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import useWindowSize from '@/hooks/useWindowSize';
-import { PATH } from '@/utils/constants/others/paths';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { CircleCheck } from 'lucide-react';
-import { RiHover } from '..';
-import { ButtonLoader } from '../Loader';
-import { cn } from '@/lib/utils';
+} from '../../ui/form'
+import { Input } from '../../ui/input'
+import { Label } from '../../ui/label'
+import { Textarea } from '../../ui/textarea'
+import { ButtonLoader } from '../Loader'
 
 interface FieldGroup {
-  name: string;
-  label?: string;
-  placeholder?: string;
-  type?: string;
-  disabled?: boolean;
-  checkboxLabel?: string;
-  labelClassName?: string;
-  inputClassName?: string;
-  inputComponentType?: 'input' | 'textarea';
-  infoContent?: React.ReactNode;
-  infoContentClassName?: string;
+  name: string
+  label?: string
+  placeholder?: string
+  type?: string
+  disabled?: boolean
+  checkboxLabel?: string
+  labelClassName?: string
+  inputClassName?: string
+  inputComponentType?: 'input' | 'textarea'
+  infoContent?: React.ReactNode
+  infoContentClassName?: string
 }
 
-type FieldRow = FieldGroup[];
+type FieldRow = FieldGroup[]
 
 interface RiFormProps {
-  form: any;
-  fields: FieldRow[];
-  additionalData?: React.ReactNode;
-  btnText?: string;
-  btnClass?: string;
-  btnParentClass?: string;
-  className?: string;
-  customButtons?: React.ReactNode;
-  loading?: boolean;
-  imapError?: React.ReactNode;
-  smtpError?: React.ReactNode;
-  handleSubmit?: (data: any) => void;
-  rowsClassName?: string;
-  FieldComponentType?: 'input' | 'textarea';
-  signInButton?: boolean;
-  formLabelClassName?: string;
+  form: any
+  fields: FieldRow[]
+  additionalData?: React.ReactNode
+  btnText?: string
+  btnClass?: string
+  btnParentClass?: string
+  className?: string
+  customButtons?: React.ReactNode
+  loading?: boolean
+  imapError?: React.ReactNode
+  smtpError?: React.ReactNode
+  handleSubmit?: (data: any) => void
+  rowsClassName?: string
+  FieldComponentType?: 'input' | 'textarea'
+  signInButton?: boolean
+  formLabelClassName?: string
 }
 
 export const RiForm: React.FC<RiFormProps> = ({
@@ -75,17 +75,17 @@ export const RiForm: React.FC<RiFormProps> = ({
   signInButton = false,
   formLabelClassName,
 }) => {
-  const isMobile = useWindowSize();
-  const pathname = usePathname();
+  const isMobile = useWindowSize()
+  const pathname = usePathname()
 
   const calculateTextAreaRows = (content?: string) => {
-    if (!content) return 1;
+    if (!content) return 1
 
-    const charsPerRow = 40;
-    const maxRows = 5;
+    const charsPerRow = 40
+    const maxRows = 5
 
-    return Math.min(Math.ceil(content.length / charsPerRow), maxRows);
-  };
+    return Math.min(Math.ceil(content.length / charsPerRow), maxRows)
+  }
 
   return (
     <Form {...form}>
@@ -119,7 +119,7 @@ export const RiForm: React.FC<RiFormProps> = ({
                               <CircleCheck className="text-xl text-primary" />
                             }
                             side="top"
-                            contentClassName={`w-[26rem] ${group.infoContentClassName}`}
+                            contentClassName={`w-104 ${group.infoContentClassName}`}
                           >
                             {group.infoContent}
                           </RiHover>
@@ -134,7 +134,7 @@ export const RiForm: React.FC<RiFormProps> = ({
                             id={group.name}
                             className={cn(
                               'flex justify-start border w-auto',
-                              group.inputClassName
+                              group.inputClassName,
                             )}
                             type={group.type || 'text'}
                             disabled={group?.disabled || false}
@@ -145,7 +145,7 @@ export const RiForm: React.FC<RiFormProps> = ({
                             className={cn(
                               group.labelClassName,
                               !group.labelClassName &&
-                                'flex w-full text-xs form-required'
+                                'flex w-full text-xs form-required',
                             )}
                           >
                             {group.checkboxLabel}
@@ -159,7 +159,7 @@ export const RiForm: React.FC<RiFormProps> = ({
                               disabled={group?.disabled || false}
                               className={cn(
                                 'border min-h-[40px]',
-                                group.inputClassName
+                                group.inputClassName,
                               )}
                               placeholder={group.placeholder}
                               {...field}
@@ -211,9 +211,7 @@ export const RiForm: React.FC<RiFormProps> = ({
 
             {signInButton && (
               <div className="lg:hidden flex gap-1 justify-center items-center w-full py-3 px-5 text-sm border rounded-md bg-background">
-                <Link
-                  href={pathname === '/signin' ? PATH.SIGNUP : PATH.SIGNIN}
-                >
+                <Link href={pathname === '/signin' ? PATH.SIGNUP : PATH.SIGNIN}>
                   {pathname === '/signin' ? 'Sign Up' : 'Sign In'}
                 </Link>
               </div>
@@ -222,5 +220,5 @@ export const RiForm: React.FC<RiFormProps> = ({
         )}
       </form>
     </Form>
-  );
-};
+  )
+}

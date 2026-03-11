@@ -31,7 +31,7 @@ export const SideCard = () => {
         </h1>
       </div>
       <RiCard
-        className={'dark:bg-gradient-to-b from-neutral-700 to-neutral-900'}
+        className={'dark:bg-linear-to-b from-neutral-700 to-neutral-900'}
         contentClassName={'pt-0'}
         header={
           <div>

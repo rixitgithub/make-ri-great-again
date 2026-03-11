@@ -21,7 +21,7 @@ export const RiAvatar: FC<RiAvatarProps> = ({
     <Avatar className={className}>
       <AvatarImage src={src} />
       <AvatarFallback
-        className={`dark:bg-gradient-to-r dark:from-[#4B63DD] dark:to-[#0524BFFC] bg-gradient-to-r from-blue-500 to-blue-600 text-white ${fallbackClassName}`}
+        className={`dark:bg-linear-to-r dark:from-[#4B63DD] dark:to-[#0524BFFC] bg-linear-to-r from-blue-500 to-blue-600 text-white ${fallbackClassName}`}
       >
         {fallbackText}
       </AvatarFallback>
